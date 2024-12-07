@@ -1,0 +1,15 @@
+FROM node:23-alpine
+
+WORKDIR /app
+
+COPY ./package.json ./
+
+RUN npm config set registry https://registry.npmmirror.com/
+RUN npm install -g pnpm && pnpm install
+
+COPY . .
+
+EXPOSE 5173
+EXPOSE 3011
+
+CMD ["pnpm", "run", "dev", "--host"]
